@@ -1,0 +1,20 @@
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Arquivos temporários
+*.tmp
+*.temp
+~*
+
+# Arquivos de imagem de referência (opcional - remover se quiser versionar)
+screen.png
+
+# Servidor local
+servidor-local.*
+iniciar-servidor.bat
