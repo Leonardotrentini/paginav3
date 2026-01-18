@@ -225,66 +225,37 @@ fbq('track','PageView');
 <body>
 <script>
 (function(){
-var hashCheck=function(){
-if(window.location.hash){
+var preventAutoScroll=false;
+if(window.location.hash==='#form-section'){
+preventAutoScroll=true;
 window.history.replaceState(null,null,window.location.pathname+window.location.search);
+window.scrollTo(0,0);
+setTimeout(function(){window.scrollTo(0,0)},0);
+setTimeout(function(){window.scrollTo(0,0)},10);
 }
-window.scrollTo&&window.scrollTo(0,0);
-window.pageYOffset=0;
-document.documentElement.scrollTop=0;
-document.body.scrollTop=0;
-};
-hashCheck();
-setTimeout(hashCheck,0);
-setTimeout(hashCheck,10);
-setTimeout(hashCheck,50);
 document.addEventListener('DOMContentLoaded',function(){
-hashCheck();
 const formSection=document.getElementById('form-section-temp');
 if(formSection){
 formSection.id='form-section';
 }
-var scrollTop=function(){
-window.scrollTo&&window.scrollTo(0,0);
-window.pageYOffset=0;
-document.documentElement.scrollTop=0;
-document.body.scrollTop=0;
-};
-scrollTop();
-setTimeout(scrollTop,0);
-setTimeout(scrollTop,10);
-setTimeout(scrollTop,50);
-setTimeout(scrollTop,100);
-setTimeout(scrollTop,200);
-setTimeout(scrollTop,500);
+if(preventAutoScroll){
+window.scrollTo(0,0);
+setTimeout(function(){window.scrollTo(0,0)},50);
+setTimeout(function(){window.scrollTo(0,0)},100);
+}
+preventAutoScroll=false;
 });
 window.addEventListener('load',function(){
-hashCheck();
 const formSection=document.getElementById('form-section-temp');
 if(formSection&&!document.getElementById('form-section')){
 formSection.id='form-section';
 }
-var scrollTop=function(){
-window.scrollTo&&window.scrollTo(0,0);
-window.pageYOffset=0;
-document.documentElement.scrollTop=0;
-document.body.scrollTop=0;
-};
-scrollTop();
-requestAnimationFrame(scrollTop);
-setTimeout(scrollTop,0);
-setTimeout(scrollTop,50);
-setTimeout(scrollTop,100);
-});
-setInterval(function(){
-if(window.location.hash||window.pageYOffset>50||document.documentElement.scrollTop>50){
-hashCheck();
-window.scrollTo&&window.scrollTo(0,0);
-window.pageYOffset=0;
-document.documentElement.scrollTop=0;
-document.body.scrollTop=0;
+if(preventAutoScroll){
+window.scrollTo(0,0);
+setTimeout(function(){window.scrollTo(0,0)},0);
 }
-},50);
+preventAutoScroll=false;
+});
 })();
 </script>
 <div class="w-full bg-primary text-black text-center py-2 px-4 text-xs font-bold tracking-widest flex items-center justify-center gap-2">
@@ -523,25 +494,14 @@ window.scrollTo(0,0);
 },100);
 }
 })();
-window.addEventListener('load',function(){
-if(window.location.hash==='#form-section'){
-window.scrollTo(0,0);
-setTimeout(function(){
-window.scrollTo(0,0);
-history.replaceState(null,null,window.location.pathname+window.location.search);
-},0);
-}
-});
-window.addEventListener('hashchange',function(e){
 document.querySelectorAll('a[href="#form-section"]').forEach(function(link){
 link.addEventListener('click',function(e){
-e.preventDefault();
 const formSection=document.getElementById('form-section')||document.getElementById('form-section-temp');
 if(formSection){
+e.preventDefault();
 formSection.scrollIntoView({behavior:'smooth'});
-}
 return false;
-});
+}
 });
 });
 document.addEventListener('DOMContentLoaded',function(){
